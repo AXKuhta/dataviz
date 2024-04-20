@@ -214,6 +214,8 @@ def update_top_pop_dash(meas_vs_year_zoom):
 def update_pop_pie_dash(meas_vs_year_zoom):
 	return build_pop_pie_fig(*extract_from_to(meas_vs_year_zoom))
 
+# Run: gunicorn main:app
+app = app.server
 
 if __name__ == '__main__':
 	app.run(debug=True)

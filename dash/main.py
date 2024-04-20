@@ -56,7 +56,7 @@ meas_vs_year_dash = html.Div([
 		])
 	], style={"margin": "0rem 1rem"}),
 	dcc.Graph(id='meas-vs-year', figure = build_meas_vs_year_fig(default_countries), style=style_dashboard, responsive=True)
-], style=style_dashboard)
+], style=style_dashboard, id="meas-vs-year-dash")
 
 
 ######################################################################################################
@@ -101,7 +101,7 @@ bubble_dash = html.Div([
 		]),
 	], style={"margin": "0rem 1rem"}),
 	dcc.Graph(id='bubble', figure = build_bubble_fig(), style=style_dashboard, responsive=True)
-], style=style_dashboard)
+], style=style_dashboard, id="bubble-dash")
 
 
 ######################################################################################################
@@ -121,7 +121,7 @@ def build_top_pop_fig(year_from=None, year_to=None):
 
 top_pop_dash =  html.Div([
 	dcc.Graph(id='top-pop', figure = build_top_pop_fig(), style=style_dashboard, responsive=True)
-], style=style_dashboard)
+], style=style_dashboard, id="top-pop-dash")
 
 ######################################################################################################
 # График 4: pie chart населения континентов
@@ -141,17 +141,34 @@ def build_pop_pie_fig(year_from=None, year_to=None):
 
 pop_pie_dash =  html.Div([
 	dcc.Graph(id='pop-pie', figure = build_pop_pie_fig(), style=style_dashboard, responsive=True)
-], style=style_dashboard)
+], style=style_dashboard, id="pop-pie-dash")
 
 
 app.layout = html.Div([
 	html.H1(children='Сравнение стран', style={'textAlign':'center'}),
 	dash_draggable.ResponsiveGridLayout([
-		meas_vs_year_dash,
-		top_pop_dash,
-		pop_pie_dash,
-		bubble_dash
-	])
+		meas_vs_year_dash, bubble_dash,
+		top_pop_dash, pop_pie_dash
+	], clearSavedLayout=True, layouts={
+		"lg": [
+			{
+				"i": "meas-vs-year-dash",
+				"x":0, "y":0, "w":6, "h":12
+			},
+			{
+				"i": "bubble-dash",
+				"x":6, "y":0, "w":6, "h":12
+			},
+			{
+				"i": "top-pop-dash",
+				"x":0, "y":12, "w":6, "h":12
+			},
+			{
+				"i": "pop-pie-dash",
+				"x":6, "y":12, "w":6, "h":12
+			}
+		]
+	})
 ])
 
 @callback(

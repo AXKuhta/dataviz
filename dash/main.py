@@ -135,9 +135,8 @@ def build_pop_pie_fig(year_from=None, year_to=None):
 		filtered_data = df[df.year.between(year_from, year_to)]
 
 	latest_data = filtered_data.sort_values("year", ascending=False).drop_duplicates("country")
-	continent_data = latest_data.groupby("continent").sum()
 
-	return px.pie(df, values="pop", names="continent", title="Население континентов", hole=.3)
+	return px.pie(latest_data, values="pop", names="continent", title="Население континентов", hole=.3)
 
 pop_pie_dash =  html.Div([
 	dcc.Graph(id='pop-pie', figure = build_pop_pie_fig(), style=style_dashboard, responsive=True)

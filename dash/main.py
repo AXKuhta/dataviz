@@ -71,6 +71,11 @@ def build_bubble_fig(x="gdpPercap", y="lifeExp", size="pop", year_from=None, yea
 
 	latest_data = filtered_data.sort_values(["continent", "year"], ascending=False).drop_duplicates("country")
 
+	if size == "lifeExp":
+		size = latest_data.lifeExp
+		size = size / size.max()
+		size = size**6
+
 	return px.scatter(latest_data, x=x, y=y, size=size, color="continent", hover_name="country", size_max=60, hover_data=["year"])
 
 bubble_dash = html.Div([
